@@ -1,5 +1,10 @@
 package jp.co.rakus.stockmanagement.web;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * メンバー関連のリクエストパラメータが入るフォーム.
  * @author igamasayuki
@@ -7,8 +12,11 @@ package jp.co.rakus.stockmanagement.web;
  */
 public class MemberForm {
 	/** 名前 */
+	@NotBlank(message="名前を入力してください")
 	private String name;
 	/** メールアドレス */
+	@Size(min=1,max=127,message="メールアドレスは1文字以上127文字以内で入力してください。")
+	@Email(message="Eメールの形式が不正です")
 	private String mailAddress;
 	/** パスワード */
 	private String password;
