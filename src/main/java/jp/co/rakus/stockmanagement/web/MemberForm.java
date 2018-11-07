@@ -19,7 +19,7 @@ public class MemberForm {
 	@Email(message="Eメールの形式が不正です")
 	private String mailAddress;
 	/** パスワード */
-	@NotBlank(message="名前を入力してください")
+	@NotBlank(message="パスワードを入力してください")
 	private String password;
 	public String getName() {
 		return name;

@@ -35,10 +35,6 @@ public class MemberController {
 		return new MemberForm();
 	}
 	
-	@ModelAttribute
-	public LoginForm setUpLoginForm() {
-		return new LoginForm();
-	}
 
 	/**
 	 * メンバー情報登録画面を表示します.
@@ -67,7 +63,7 @@ public class MemberController {
 		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
 		memberService.save(member);
-		return "loginForm";
+		return "redirect:/";
 	}
 	
 }
