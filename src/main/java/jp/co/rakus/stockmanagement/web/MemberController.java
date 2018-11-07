@@ -33,6 +33,11 @@ public class MemberController {
 	public MemberForm setUpForm() {
 		return new MemberForm();
 	}
+	
+	@ModelAttribute
+	public LoginForm setUpLoginForm() {
+		return new LoginForm();
+	}
 
 	/**
 	 * メンバー情報登録画面を表示します.
