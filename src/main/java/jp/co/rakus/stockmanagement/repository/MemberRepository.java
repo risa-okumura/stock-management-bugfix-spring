@@ -1,6 +1,6 @@
 package jp.co.rakus.stockmanagement.repository;
 
-import jp.co.rakus.stockmanagement.domain.Member;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+
+import jp.co.rakus.stockmanagement.domain.Member;
 
 /**
  * membersテーブル操作用のリポジトリクラス.
@@ -39,12 +41,11 @@ public class MemberRepository {
 	 * @return メンバー情報.メンバーが存在しない場合はnull.
 	 */
 	public Member findByMailAddressAndPassword(String mailAddress, String password) {
-		SqlParameterSource param = new MapSqlParameterSource();
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password", password);
 		Member member = null;
 		try{
 			member = jdbcTemplate.queryForObject(
-					"SELECT id,name,mail_address,password FROM members WHERE mail_address= '"
-							+ mailAddress + "' and password='" + password + "'",
+					"SELECT id,name,mail_address,password FROM members WHERE mail_address = :mailAddress and password = :password;" ,
 					param, 
 					MEMBER_ROW_MAPPER);
 			return member;
@@ -71,6 +72,15 @@ public class MemberRepository {
 					param);
 		}
 		return member;
+	}
+	
+	public List<Member> findByMailAddress(Member member) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(member);
+		
+		String sql = "SELECT mail_address FROM members WHERE mail_address =:mailAddress ";
+		List<Member> memberList = jdbcTemplate.query(sql, param, MEMBER_ROW_MAPPER);
+		
+		return memberList;
 	}
 
 }

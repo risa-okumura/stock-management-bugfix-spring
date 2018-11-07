@@ -60,8 +60,12 @@ public class MemberController {
 			return form();
 		}
 		
+		
 		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
+		
+		//if(member.getMailAddress().equals(memberService.))
+		
 		memberService.save(member);
 		return "redirect:/";
 	}

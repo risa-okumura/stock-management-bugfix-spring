@@ -34,6 +34,18 @@
 			    	<form:password path="password" placeholder="Password"/>
 			    </td>
 			  </tr>
+			  
+			  <tr>
+			    <th>
+			     	 パスワード確認用
+			    </th>
+			    <td>
+			    <form:errors path="password" cssStyle="color:red" element="div"/>
+			    	<form:password path="password2" placeholder="Password"/>
+			    </td>
+			  </tr>
+			  
+			  
 			  <tr>
 			  	<td></td>
 			    <td>
