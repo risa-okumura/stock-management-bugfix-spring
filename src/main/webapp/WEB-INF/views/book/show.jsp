@@ -87,7 +87,7 @@
 			    </td>
 			  </tr>
 			</table>
-			<a href="/book/list">書籍一覧に戻る</a>
+			<a href="${pageContext.request.contextPath}/book/list">書籍一覧に戻る</a>
 		</div>
 	</div>
 </div>
