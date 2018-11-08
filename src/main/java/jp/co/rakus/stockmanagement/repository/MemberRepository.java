@@ -71,16 +71,24 @@ public class MemberRepository {
 					"UPDATE members SET name=:name,mail_address=:mailAddress,password=:password WHERE id=:id", 
 					param);
 		}
+		
 		return member;
 	}
 	
-	public List<Member> findByMailAddress(Member member) {
-		SqlParameterSource param = new BeanPropertySqlParameterSource(member);
-		
-		String sql = "SELECT mail_address FROM members WHERE mail_address =:mailAddress ";
+	public Member findByMailAddress(String mailAddress) {
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress);
+		String sql = "SELECT id,name,mail_address,password FROM members WHERE mail_address =:mailAddress";
 		List<Member> memberList = jdbcTemplate.query(sql, param, MEMBER_ROW_MAPPER);
 		
-		return memberList;
+		if(memberList.size()==0) {
+			return null;
+			
+		}
+		Member member = memberList.get(0);
+		
+		return member;
+		
 	}
+	
 
 }
