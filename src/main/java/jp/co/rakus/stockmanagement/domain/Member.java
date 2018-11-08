@@ -5,6 +5,11 @@ package jp.co.rakus.stockmanagement.domain;
  * @author rakus
  */
 public class Member {
+	
+	
+	
+	
+	
 	/** id(主キー) */
 	private Integer id;
 	/** 名前 */

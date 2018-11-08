@@ -1,7 +1,5 @@
 package jp.co.rakus.stockmanagement.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +33,8 @@ public class MemberService {
 		return memberRepository.save(member);
 	}
 	
-	public List<Member> findByMailAddress(Member member) {
-		return memberRepository.findByMailAddress(member);
+	public Member findByMailAddress(String mailAddress) {
+	return memberRepository.findByMailAddress(mailAddress);
 	}
 	
 //	public Member update(Member member){

@@ -56,6 +56,14 @@ public class MemberController {
 	public String create(@Validated MemberForm form,BindingResult result, 
 			Model model) {
 		
+		if(memberService.findByMailAddress(form.getMailAddress()) != null) {
+			result.rejectValue("mailAddress", null, "そのメールアドレスは既に登録されています");
+		}
+		
+		if(!(form.getPassword().equals(form.getCheckPassword()))) {
+			result.rejectValue("checkPassword", null, "パスワードが一致しません");
+		}
+		
 		if(result.hasErrors()) {
 			return form();
 		}
@@ -63,15 +71,7 @@ public class MemberController {
 		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
 		
-		if(memberService.findByMailAddress(form.getMailAddress()) != null) {
-			result.rejectValue("mailAddress", null, "そのメールアドレスは既に登録されています");
-			return form();
-		}
-		
-		if(!(member.getPassword().equals(form.getCheckPassword()))) {
-			result.rejectValue("checkPassword", null, "パスワードが一致しません");
-			return form();
-		}
+	
 		
 		memberService.save(member);
 		return "redirect:/";

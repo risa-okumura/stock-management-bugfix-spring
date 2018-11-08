@@ -21,6 +21,18 @@ public class MemberForm {
 	/** パスワード */
 	@NotBlank(message="パスワードを入力してください")
 	private String password;
+	
+	/** 再確認用パスワード */
+	private String checkPassword;
+	
+	public String getCheckPassword() {
+		return checkPassword;
+	}
+	public void checkCheckPassword(String checkPassword) {
+		this.checkPassword = checkPassword;
+	}
+	
+	
 	public String getName() {
 		return name;
 	}
