@@ -37,11 +37,11 @@
 			  
 			  <tr>
 			    <th>
-			     	 パスワード確認用
+			     	確認用パスワード
 			    </th>
 			    <td>
-			    <form:errors path="password" cssStyle="color:red" element="div"/>
-			    	<form:password path="password2" placeholder="Password"/>
+			    <form:errors path="checkPassword" cssStyle="color:red" element="div"/>
+			    	<form:password path="checkPassword" placeholder="CheckPassword"/>
 			    </td>
 			  </tr>
 			  
