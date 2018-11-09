@@ -35,6 +35,10 @@ public class BookService {
 		return bookRepository.update(book);
 	}
 	
+	public void insertBook(Book book){
+		bookRepository.insertBook(book);
+	}
+	
 //	public void delete(Integer id){
 //		bookRepository.delete(id);
 //	}

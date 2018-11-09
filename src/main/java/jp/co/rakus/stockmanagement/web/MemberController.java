@@ -56,11 +56,11 @@ public class MemberController {
 	public String create(@Validated MemberForm form,BindingResult result, 
 			Model model) {
 		
-		if(memberService.findByMailAddress(form.getMailAddress()) != null) {
+		if(existMailAddress(form)) {
 			result.rejectValue("mailAddress", null, "そのメールアドレスは既に登録されています");
 		}
 		
-		if(!(form.getPassword().equals(form.getCheckPassword()))) {
+		if(!equalsPassword(form)) {
 			result.rejectValue("checkPassword", null, "パスワードが一致しません");
 		}
 		
@@ -70,11 +70,18 @@ public class MemberController {
 		
 		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
-		
-	
-		
 		memberService.save(member);
 		return "redirect:/";
+	}
+
+
+	private boolean equalsPassword(MemberForm form) {
+		return form.getPassword().equals(form.getCheckPassword());
+	}
+
+
+	private boolean existMailAddress(MemberForm form) {
+		return memberService.findByMailAddress(form.getMailAddress()) != null;
 	}
 	
 }

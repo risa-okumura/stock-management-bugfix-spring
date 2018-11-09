@@ -1,9 +1,9 @@
+
+
 package jp.co.rakus.stockmanagement.repository;
 
 import java.util.Date;
 import java.util.List;
-
-import jp.co.rakus.stockmanagement.domain.Book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+
+import jp.co.rakus.stockmanagement.domain.Book;
 
 /**
  * booksテーブル操作用のリポジトリクラス.
@@ -66,4 +68,13 @@ public class BookRepository {
 				param);
 		return book;
 	}
+	
+	public void insertBook(Book book) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(book);
+		String sql = "INSERT INTO books(id,name,author,publisher,price,isbncode,saledate,explanation,image,stock) VALUES ( :id,:name,:author,:publisher,:price,:isbncode,:saledate,:explanation,:image,:stock);";
+		jdbcTemplate.update(sql, param);
+		
+	}
+	
+
 }

@@ -30,6 +30,13 @@ public class Book {
 	private String image;
 	/** 在庫数 */
 	private Integer stock;
+	
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", name=" + name + ", author=" + author + ", publisher=" + publisher + ", price="
+				+ price + ", isbncode=" + isbncode + ", saledate=" + saledate + ", explanation=" + explanation
+				+ ", image=" + image + ", stock=" + stock + "]";
+	}
 	public Book() {}
 	public Book(Integer id, String name, String author, String publisher, int price, String isbncode, Date saledate,
 			String explanation, String image, Integer stock) {

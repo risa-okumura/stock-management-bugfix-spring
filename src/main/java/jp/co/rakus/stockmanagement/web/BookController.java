@@ -1,7 +1,10 @@
 package jp.co.rakus.stockmanagement.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,5 +84,42 @@ public class BookController {
 		bookService.update(book);
 		return list(model);
 	}
+	
+	/**
+	 * 書籍情報を登録する.
+	 * 
+	 * @param form 書籍情報のフォーム
+	 * @param result　
+	 * @param model
+	 * @return　書籍一覧画面
+	 */
+	@RequestMapping(value = "insertBook")
+	public String insertBook(@Validated BookForm form, BindingResult result, Model model) {
+		ImageDirectory imageDirectory = new ImageDirectory();
+		File file = new File(imageDirectory.filePath("C:\\env\\app\\sts\\stock-management-bugfix-spring\\src\\main\\webapp\\img\\") + form.getImage().getOriginalFilename());
+		System.out.println(file);
+		try{
+			form.getImage().transferTo(file);
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		Book book = new Book();
+		BeanUtils.copyProperties(form, book);
 
+		List<Book> bookList = bookService.findAll();
+		int lastId = bookList.size();
+		book.setId((lastId+1));
+		
+		book.setPrice(form.getIntPrice());
+		book.setSaledate(form.getDateSaledate());
+		book.setImage(form.getImage().getOriginalFilename());
+		System.out.println(book.toString());
+
+		bookService.insertBook(book);
+		
+		return "redirect:/book/list";
+	}
+	
 }
